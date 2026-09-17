@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QUANTIS — Cartes de Visite Exécutives (Modèles Officiels)</title>
+  <meta name="description" content="Cartes de visite exécutives pour les membres de Quantis : Modèle Clair Ivoire & Or et Modèle Sombre Bleu Nuit Prestige.">
+  <link rel="icon" type="image/jpeg" href="logo.jpeg">
+  <link rel="stylesheet" href="cartes.css">
+</head>
+<body>
+
+  <!-- ═══ STUDIO HEADER ═══ -->
+  <header class="studio-header">
+    <div class="brand-wrapper">
+      <div class="brand-badge">Q.</div>
+      <div class="brand-titles">
+        <h1>QUANTIS <span>CARDS STUDIO</span></h1>
+        <p>Cartes de Visite Officielles · Édition Exécutive 300 DPI</p>
+      </div>
+    </div>
+
+    <div class="studio-actions-top">
+      <button class="btn-studio btn-studio-ghost" id="btnPrintCards">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        <span>Imprimer (85×55mm)</span>
+      </button>
+
+      <button class="btn-studio btn-studio-primary" id="btnExportAll">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        <span>Planche A4 Tous les Membres</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ CONTROLS BAR ═══ -->
+  <section class="controls-bar">
+    <!-- Member Selector Tabs -->
+    <div class="member-tabs">
+      <button class="member-tab-btn active" data-member="kim">
+        <span>👑</span>
+        <span>Kim Josaphat YARGA (CEO)</span>
+      </button>
+      <button class="member-tab-btn" data-member="michee">
+        <span>☁️</span>
+        <span>Barkwendé Michée OUEDRAOGO (Cloud & Infra)</span>
+      </button>
+      <button class="member-tab-btn" data-member="abidine">
+        <span>⚙️</span>
+        <span>Abidine SAWADOGO (COO)</span>
+      </button>
+    </div>
+
+    <!-- Options and View Toggles -->
+    <div class="view-options">
+      <!-- Filter Models -->
+      <div class="toggle-group">
+        <button class="toggle-btn active" data-view-filter="both">Les 2 Modèles</button>
+        <button class="toggle-btn" data-view-filter="light">Modèle Clair</button>
+        <button class="toggle-btn" data-view-filter="dark">Modèle Sombre</button>
+      </div>
+
+      <!-- Quick Options -->
+      <div class="toggle-group">
+        <button class="toggle-btn active" id="togglePrefixBtn">Indicatif: +226 Actif</button>
+        <button class="toggle-btn active" id="toggleWebBtn">Site Web: Affiché</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MAIN CARDS DISPLAY STAGE ═══ -->
+  <main class="studio-main">
+    <div class="cards-container-grid">
+
+      <!-- ─── CARTE MODÈLE 1 : CLAIR (IVOIRE & OR) ─── -->
+      <div class="card-unit" id="cardUnitLight">
+        <div class="card-unit-header">
+          <div class="card-badge-title light">
+            <span>✨</span>
+            <span>Modèle 1 · Ivoire &amp; Or Solaire</span>
+          </div>
+          <div class="card-actions-bar">
+            <button class="btn-card-action" id="btnExportLightPng">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Télécharger PNG HD (300 DPI)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-3d-wrapper">
+          <div class="card-shadow-plate"></div>
+          
+          <div class="business-card model-light">
+            <!-- Dynamic Gloss Highlight -->
+            <div class="card-specular-sheen"></div>
+
+            <!-- Left Column: Geometric Guilloché & Crest -->
+            <div class="card-left-col">
+              <!-- Geometric Tessellation SVG Pattern -->
+              <svg class="card-bg-pattern" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <defs>
+                  <pattern id="guillochePattern" width="44" height="44" patternUnits="userSpaceOnUse">
+                    <path d="M 0 22 L 22 0 L 44 22 L 22 44 Z" fill="none" stroke="#cfc5b4" stroke-width="0.75" />
+                    <path d="M 11 11 L 33 11 L 33 33 L 11 33 Z" fill="none" stroke="#e0d7c7" stroke-width="0.5" />
+                    <circle cx="22" cy="22" r="6" fill="none" stroke="#d5cbb9" stroke-width="0.5" />
+                    <line x1="0" y1="0" x2="44" y2="44" stroke="#dfd6c6" stroke-width="0.5" />
+                    <line x1="44" y1="0" x2="0" y2="44" stroke="#dfd6c6" stroke-width="0.5" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#guillochePattern)" />
+              </svg>
+
+              <!-- Crest & Brand -->
+              <div class="crest-container">
+                <svg class="crest-circle-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <!-- Outer Concentric Rings -->
+                  <circle cx="100" cy="100" r="88" stroke="#0e1c3d" stroke-width="2.5" />
+                  <circle cx="100" cy="100" r="79" stroke="#0e1c3d" stroke-width="1.8" />
+                  
+                  <!-- Golden Dot at 6 o'clock -->
+                  <circle cx="100" cy="183" r="5" fill="#c5a059" />
+
+                  <!-- Golden Arrow at 2 o'clock (Solid Gold Arrow pointing 45°) -->
+                  <g transform="translate(155, 45) rotate(45)">
+                    <!-- Arrowhead -->
+                    <polygon points="0,-10 10,8 -10,8" fill="#c5a059" />
+                    <!-- Stem -->
+                    <rect x="-3" y="6" width="6" height="12" fill="#c5a059" />
+                  </g>
+
+                  <!-- Inner Solid Disk -->
+                  <circle cx="100" cy="100" r="67" fill="#faf7f0" />
+
+                  <!-- Central "Q" letter -->
+                  <text x="100" y="112" font-family="'Montserrat', sans-serif" font-size="96" font-weight="800" fill="#0e1c3d" text-anchor="middle" dominant-baseline="middle">Q</text>
+                </svg>
+
+                <div class="card-brand-name">QUANTIS</div>
+              </div>
+            </div>
+
+            <!-- Right Column: Personal Data & Contacts -->
+            <div class="card-right-col">
+              <h2 class="member-name">KIM JOSAPHAT YARGA</h2>
+              <div class="member-role">CHEF EXECUTIF OFFICIER</div>
+              <div class="gold-divider-line"></div>
+
+              <div class="card-contact-list">
+                <!-- Phone -->
+                <div class="contact-row contact-row-phone">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.02-.24 11.72 11.72 0 003.68.59 1 1 0 011 1v3.5a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.28.2 2.52.59 3.68a1 1 0 01-.24 1.02l-2.23 2.09z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">+226 65 18 92 61</span>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-row contact-row-whatsapp">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.664-.699c.97.529 1.777.814 2.8.814 3.18 0 5.767-2.586 5.768-5.766 0-3.18-2.586-5.766-5.772-5.766zm3.393 8.163c-.144.405-.837.774-1.17.822-.312.045-.718.064-2.316-.597-1.921-.796-3.149-2.756-3.245-2.884-.096-.128-.773-1.03-.773-1.964 0-.934.489-1.393.663-1.583.174-.19.38-.238.507-.238.127 0 .253.001.364.007.119.006.277-.045.433.332.164.397.56 1.365.61 1.465.05.1.083.217.017.348-.067.13-.1.211-.2.327-.1.116-.21.258-.3.346-.1.096-.204.2-.088.399.116.199.516.852 1.107 1.38.761.679 1.402.889 1.601.988.199.1.316.084.433-.05.117-.133.5-.584.633-.784.133-.2.266-.166.449-.1.183.067 1.164.55 1.364.65.2.1.333.15.383.233.05.083.05.483-.094.888z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">53967534</span>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-row contact-row-email">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">quantis474@gmail.com</span>
+                </div>
+
+                <!-- Website -->
+                <div class="contact-row contact-row-web">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95a15.65 15.65 0 00-1.38-3.56A8.03 8.03 0 0118.92 8zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56A7.987 7.987 0 015.08 16zm2.95-8H5.08a7.987 7.987 0 013.93-3.56A15.65 15.65 0 007.63 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.29 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95a8.03 8.03 0 01-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">quantisbf.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ─── CARTE MODÈLE 2 : SOMBRE (BLEU NUIT PRESTIGE & OR) ─── -->
+      <div class="card-unit" id="cardUnitDark">
+        <div class="card-unit-header">
+          <div class="card-badge-title dark">
+            <span>✨</span>
+            <span>Modèle 2 · Bleu Nuit &amp; Or Métallique Gaufré</span>
+          </div>
+          <div class="card-actions-bar">
+            <button class="btn-card-action" id="btnExportDarkPng">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Télécharger PNG HD (300 DPI)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-3d-wrapper">
+          <div class="card-shadow-plate"></div>
+
+          <div class="business-card model-dark">
+            <!-- Dynamic Gloss Highlight -->
+            <div class="card-specular-sheen"></div>
+
+            <!-- Left Column: 3D Embossed Crest -->
+            <div class="card-left-col">
+              <div class="crest-container">
+                <svg class="crest-circle-svg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <!-- Metallic Gold Foil Gradient -->
+                    <linearGradient id="goldFoilGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#fff5d6" />
+                      <stop offset="35%" stop-color="#d4af37" />
+                      <stop offset="70%" stop-color="#8c6a2e" />
+                      <stop offset="100%" stop-color="#f7e1a6" />
+                    </linearGradient>
+
+                    <!-- Beveled Navy Ring Gradient -->
+                    <linearGradient id="bevelNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#182c59" />
+                      <stop offset="50%" stop-color="#0c1834" />
+                      <stop offset="100%" stop-color="#050b1a" />
+                    </linearGradient>
+
+                    <!-- Concave Inner Basin -->
+                    <radialGradient id="concaveBasin" cx="40%" cy="40%" r="65%">
+                      <stop offset="0%" stop-color="#0a142c" />
+                      <stop offset="70%" stop-color="#060d1f" />
+                      <stop offset="100%" stop-color="#030711" />
+                    </radialGradient>
+
+                    <!-- Drop Shadow Filter for 3D Relief -->
+                    <filter id="embossShadow" x="-20%" y="-20%" width="140%" height="140%">
+                      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.85" />
+                    </filter>
+                  </defs>
+
+                  <!-- Outer Heavy Beveled Navy Ring with 3D shadow -->
+                  <circle cx="100" cy="100" r="86" stroke="url(#bevelNavyGrad)" stroke-width="12" filter="url(#embossShadow)" />
+                  
+                  <!-- Metallic Gold Inner Rim Line -->
+                  <circle cx="100" cy="100" r="80" stroke="url(#goldFoilGrad)" stroke-width="2.2" opacity="0.8" />
+
+                  <!-- Metallic Gold 3D Arrow at 2 o'clock -->
+                  <g transform="translate(160, 44)">
+                    <path d="M -8 16 L 8 0 M 8 0 L 0 0 M 8 0 L 8 8" stroke="url(#goldFoilGrad)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+                  </g>
+
+                  <!-- Metallic Gold 3D Dot at 6 o'clock -->
+                  <circle cx="100" cy="180" r="5" fill="url(#goldFoilGrad)" />
+
+                  <!-- Sunken Concave Inner Core -->
+                  <circle cx="100" cy="100" r="66" fill="url(#concaveBasin)" />
+
+                  <!-- Embossed 3D "Q" Letter -->
+                  <text x="100" y="112" font-family="'Montserrat', sans-serif" font-size="98" font-weight="800" fill="#132349" text-anchor="middle" dominant-baseline="middle" filter="url(#embossShadow)">Q</text>
+                  <!-- Specular Edge Highlight on Q -->
+                  <text x="99.5" y="111.5" font-family="'Montserrat', sans-serif" font-size="98" font-weight="800" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" text-anchor="middle" dominant-baseline="middle">Q</text>
+                </svg>
+
+                <div class="card-brand-name">QUANTIS</div>
+              </div>
+            </div>
+
+            <!-- Right Column: Gold Typography & Contacts -->
+            <div class="card-right-col">
+              <h2 class="member-name">KIM JOSAPHAT YARGA</h2>
+              <div class="member-role">CHEF EXECUTIF OFFICIER</div>
+              <div class="gold-divider-line"></div>
+
+              <div class="card-contact-list">
+                <!-- Phone -->
+                <div class="contact-row contact-row-phone">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">+226 65 18 92 61</span>
+                </div>
+
+                <!-- WhatsApp -->
+                <div class="contact-row contact-row-whatsapp">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.79 14.07c-.24.68-1.4 1.29-1.92 1.37-.5.08-1.12.11-3.64-.93-2.68-1.11-4.39-3.83-4.52-4.01-.13-.18-1.08-1.44-1.08-2.75s.68-1.96.93-2.22c.24-.26.54-.33.72-.33.18 0 .36.002.52.01.17.01.39-.06.61.47.23.55.78 1.91.85 2.05.07.15.12.32.02.52-.1.2-.15.32-.3.5-.15.18-.32.4-.46.54-.15.15-.3.32-.13.62.17.3.77 1.27 1.65 2.05 1.13 1 2.08 1.31 2.38 1.46.3.15.47.13.65-.07.18-.2.77-.9 1-.12.23-.32.45-.27.65-.19.2.08 1.28.6 1.5.71.22.11.37.17.43.26.06.09.06.52-.18 1.2z"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">+226 53 96 75 34</span>
+                </div>
+
+                <!-- Email -->
+                <div class="contact-row contact-row-email">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                      <polyline points="22,6 12,13 2,6" stroke="#1c1305" stroke-width="2" fill="none" />
+                    </svg>
+                  </div>
+                  <span class="contact-text">quantis474@gmail.com</span>
+                </div>
+
+                <!-- Website -->
+                <div class="contact-row contact-row-web">
+                  <div class="contact-badge-icon">
+                    <svg viewBox="0 0 24 24">
+                      <circle cx="12" cy="12" r="10" stroke="#1c1305" stroke-width="2" fill="none"/>
+                      <line x1="2" y1="12" x2="22" y2="12" stroke="#1c1305" stroke-width="2"/>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="#1c1305" stroke-width="2" fill="none"/>
+                    </svg>
+                  </div>
+                  <span class="contact-text">quantisbf.com</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══ MODAL PLANCHE D'IMPRESSION A4 ═══ -->
+  <div class="studio-modal-backdrop" id="sheetModal">
+    <div class="studio-modal-window">
+      <div class="studio-modal-header">
+        <h2>Planche d'Impression Exécutive Quantis (Format A4 - 85×55mm)</h2>
+        <button class="studio-modal-close" id="closeModalBtn">&times;</button>
+      </div>
+      <div class="studio-modal-body">
+        <p style="color: var(--studio-text-muted); font-size: 0.9rem;">
+          Cette planche regroupe l'ensemble des cartes de visite des membres exécutifs (Modèles Clair &amp; Sombre). Utilisez le raccourci d'impression pour générer un fichier PDF avec repères de coupe.
+        </p>
+        <button class="btn-studio btn-studio-primary" onclick="window.print()" style="align-self: flex-start;">
+          <span>Lancer l'impression directe / Export PDF</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="cartes.js"></script>
+</body>
+</html>

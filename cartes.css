@@ -1,0 +1,945 @@
+/* ==========================================================================
+   QUANTIS — Cartes de Visite Exécutives
+   Stylesheets Haute Précision : Modèle Clair & Modèle Sombre Prestige
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+:root {
+  /* Studio UI Colors */
+  --studio-bg: #0b0f19;
+  --studio-surface: #131b2e;
+  --studio-surface-card: #1a243d;
+  --studio-border: rgba(255, 255, 255, 0.08);
+  --studio-gold: #c5a059;
+  --studio-gold-glow: rgba(197, 160, 89, 0.35);
+  --studio-text: #f1f5f9;
+  --studio-text-muted: #94a3b8;
+
+  /* Card Physical Ratio: 85mm x 55mm (ISO standard business card) = 1.545 */
+  --card-width: 630px;
+  --card-height: 380px;
+
+  /* Card Colors - Light Model */
+  --light-bg-base: #faf7f0;
+  --light-bg-left: #f5f0e6;
+  --light-pattern-stroke: #cfc5b4;
+  --light-navy: #0e1c3d;
+  --light-navy-sub: #1e2c4f;
+  --light-gold: #c5a059;
+  --light-gold-hover: #b38b42;
+
+  /* Card Colors - Dark Model */
+  --dark-bg-base: #0c1834;
+  --dark-bg-gradient: radial-gradient(circle at 50% 40%, #112248 0%, #0c1834 60%, #071024 100%);
+  --dark-gold-light: #fff3ce;
+  --dark-gold-main: #d4af37;
+  --dark-gold-dark: #8c6a2e;
+  --dark-text-gold: #ebd6ad;
+  --dark-emboss-highlight: rgba(255, 255, 255, 0.18);
+  --dark-emboss-shadow: rgba(0, 0, 0, 0.65);
+}
+
+/* Base Studio Resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--studio-bg);
+  color: var(--studio-text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background Ambient Lighting */
+body::before {
+  content: '';
+  position: fixed;
+  top: -150px;
+  left: 30%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(30, 47, 151, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  right: 15%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(197, 160, 89, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ==========================================================================
+   STUDIO HEADER
+   ========================================================================== */
+.studio-header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 3rem;
+  border-bottom: 1px solid var(--studio-border);
+  background: rgba(11, 15, 25, 0.85);
+  backdrop-filter: blur(12px);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-badge {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #1E2F97, #0b1542);
+  border: 1px solid rgba(197, 160, 89, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(30, 47, 151, 0.3);
+}
+
+.brand-titles h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.brand-titles h1 span {
+  color: var(--studio-gold);
+}
+
+.brand-titles p {
+  font-size: 0.8rem;
+  color: var(--studio-text-muted);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.studio-actions-top {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-studio {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.btn-studio-primary {
+  background: linear-gradient(135deg, #c5a059 0%, #a88136 100%);
+  color: #0b0f19;
+  box-shadow: 0 4px 14px rgba(197, 160, 89, 0.25);
+}
+
+.btn-studio-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(197, 160, 89, 0.4);
+}
+
+.btn-studio-ghost {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--studio-text);
+  border-color: var(--studio-border);
+}
+
+.btn-studio-ghost:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ==========================================================================
+   STUDIO CONTROLS BAR
+   ========================================================================== */
+.controls-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.2rem 3rem;
+  background: rgba(19, 27, 46, 0.7);
+  border-bottom: 1px solid var(--studio-border);
+}
+
+.member-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: rgba(11, 15, 25, 0.6);
+  padding: 0.35rem;
+  border-radius: 10px;
+  border: 1px solid var(--studio-border);
+}
+
+.member-tab-btn {
+  padding: 0.55rem 1.1rem;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--studio-text-muted);
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.member-tab-btn:hover {
+  color: #fff;
+}
+
+.member-tab-btn.active {
+  background: linear-gradient(135deg, #1E2F97, #15226b);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(30, 47, 151, 0.35);
+}
+
+.view-options {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.toggle-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(11, 15, 25, 0.6);
+  padding: 0.35rem;
+  border-radius: 8px;
+  border: 1px solid var(--studio-border);
+}
+
+.toggle-btn {
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  color: var(--studio-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggle-btn.active {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ==========================================================================
+   CARDS STAGE / SHOWCASE AREA
+   ========================================================================== */
+.studio-main {
+  position: relative;
+  z-index: 5;
+  flex: 1;
+  padding: 3rem;
+  max-width: 1600px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+.cards-container-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(630px, 1fr));
+  gap: 3.5rem;
+  justify-items: center;
+  perspective: 1200px;
+}
+
+/* Card Showcase Wrapper with Label & Action Toolbar */
+.card-unit {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: center;
+  width: 100%;
+  max-width: var(--card-width);
+}
+
+.card-unit-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+
+.card-badge-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.card-badge-title.light {
+  color: #e2d2b5;
+}
+
+.card-badge-title.dark {
+  color: #7fa4e8;
+}
+
+.card-actions-bar {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-card-action {
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--studio-border);
+  color: var(--studio-text-muted);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.2s ease;
+}
+
+.btn-card-action:hover {
+  background: rgba(197, 160, 89, 0.15);
+  border-color: var(--studio-gold);
+  color: var(--studio-gold);
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   3D CARD STRUCTURE & INTERACTIVE PHYSICS
+   ========================================================================== */
+.card-3d-wrapper {
+  position: relative;
+  width: var(--card-width);
+  height: var(--card-height);
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-out;
+  cursor: grab;
+}
+
+.card-3d-wrapper:active {
+  cursor: grabbing;
+}
+
+/* Realistic Studio Shadow Beneath the Card */
+.card-shadow-plate {
+  position: absolute;
+  bottom: -25px;
+  left: 5%;
+  width: 90%;
+  height: 35px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.2) 50%, transparent 80%);
+  filter: blur(14px);
+  pointer-events: none;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+/* The Real Business Card Element (Standard 85x55mm Ratio) */
+.business-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 6px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 
+    0 15px 35px -5px rgba(0, 0, 0, 0.35),
+    0 5px 15px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+  user-select: none;
+  z-index: 2;
+}
+
+/* Realistic Gloss / Dynamic Specular Light Glare */
+.card-specular-sheen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.25) 0%, transparent 40%, rgba(255, 255, 255, 0.08) 60%, transparent 80%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  mix-blend-mode: overlay;
+  z-index: 20;
+}
+
+.card-3d-wrapper:hover .card-specular-sheen {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MODEL 1 : LIGHT EDITION (IVOIRE, OR & BLEU NUIT)
+   Exact replica of Reference Image 1
+   ========================================================================== */
+.business-card.model-light {
+  background-color: var(--light-bg-base);
+  color: var(--light-navy);
+}
+
+/* Left Section: 42% width, Geometric pattern & Logo */
+.model-light .card-left-col {
+  width: 42%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid rgba(197, 160, 89, 0.2);
+  background-color: var(--light-bg-left);
+}
+
+/* The Guilloché / Sacred Geometry SVG Background */
+.model-light .card-bg-pattern {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* Subtle Paper Grain */
+.model-light::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(0,0,0,0.015) 1px, transparent 1px);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Logo Crest Container */
+.model-light .crest-container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.model-light .crest-circle-svg {
+  width: 154px;
+  height: 154px;
+  filter: drop-shadow(0 4px 8px rgba(14, 28, 61, 0.08));
+}
+
+.model-light .card-brand-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  color: var(--light-navy);
+  text-transform: uppercase;
+  margin-left: 0.32em; /* offset for tracking */
+}
+
+/* Right Section: 58% width, Name, Title, Divider & Contacts */
+.model-light .card-right-col {
+  width: 58%;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+  padding: 3rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.model-light .member-name {
+  font-family: 'Montserrat', 'Space Grotesk', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: var(--light-navy);
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+.model-light .member-role {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--light-navy-sub);
+  text-transform: uppercase;
+  margin-top: 0.45rem;
+}
+
+.model-light .gold-divider-line {
+  width: 78px;
+  height: 3px;
+  min-height: 3px;
+  background-color: #c5a059;
+  border-radius: 2px;
+  margin: 0.9rem 0 1.25rem 0;
+  display: block;
+}
+
+/* Contact List Rows */
+.card-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  text-decoration: none;
+}
+
+.model-light .contact-badge-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #cba45e 0%, #b0873e 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(176, 135, 62, 0.3);
+  flex-shrink: 0;
+}
+
+.model-light .contact-badge-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: #ffffff;
+}
+
+.model-light .contact-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #0e1c3d;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   MODEL 2 : DARK PRESTIGE EDITION (BLEU NUIT & OR MÉTALLIQUE GAUFRÉ)
+   Exact replica of Reference Image 2
+   ========================================================================== */
+.business-card.model-dark {
+  background: radial-gradient(circle at 45% 45%, #13244c 0%, #0d1a38 55%, #071024 100%);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Subtle Leather / Fine Grain Texture Overlay */
+.model-dark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: 
+    radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(135deg, rgba(255,255,255,0.04) 0%, transparent 60%);
+  background-size: 3px 3px, 100% 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Left Section */
+.model-dark .card-left-col {
+  width: 42%;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.model-dark .crest-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+/* The 3D Embossed Crest SVG */
+.model-dark .crest-circle-svg {
+  width: 164px;
+  height: 164px;
+  filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.75));
+}
+
+/* Debossed / Stamped QUANTIS Text in Deep Navy */
+.model-dark .card-brand-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.28rem;
+  font-weight: 800;
+  letter-spacing: 0.32em;
+  color: #0b1736;
+  text-transform: uppercase;
+  margin-left: 0.32em;
+  /* 3D Deboss / Letterpress effect */
+  text-shadow: 
+    -1px -1px 2px rgba(0, 0, 0, 0.95),
+    1px 1px 2px rgba(255, 255, 255, 0.16);
+}
+
+/* Right Section */
+.model-dark .card-right-col {
+  width: 58%;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+  padding: 3rem 2.8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Gleaming Metallic Gold Foil Name */
+.model-dark .member-name {
+  font-family: 'Montserrat', 'Space Grotesk', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #fff7df 0%, #edd18c 30%, #b38834 65%, #fae6b2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+}
+
+.model-dark .member-role {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: #d8b26e;
+  text-transform: uppercase;
+  margin-top: 0.45rem;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.model-dark .gold-divider-line {
+  width: 78px;
+  height: 3px;
+  min-height: 3px;
+  background: linear-gradient(90deg, #d4af37 0%, #fff2c8 50%, #8c6a2e 100%);
+  border-radius: 2px;
+  margin: 0.9rem 0 1.25rem 0;
+  display: block;
+  box-shadow: 0 1px 5px rgba(212, 175, 55, 0.4);
+}
+
+/* Dark Model Contact Items */
+.model-dark .contact-badge-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff3ce 0%, #d8b05f 45%, #7a5414 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px rgba(255, 255, 255, 0.85);
+  flex-shrink: 0;
+}
+
+.model-dark .contact-badge-icon svg {
+  width: 17px;
+  height: 17px;
+  fill: #1e1507; /* Deep engraved dark bronze */
+}
+
+.model-dark .contact-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #ebd6ad;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* ==========================================================================
+   MODAL DIALOG FOR FULL-SHEET PRINT / PREVIEW
+   ========================================================================== */
+.studio-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 7, 13, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  padding: 2rem;
+}
+
+.studio-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.studio-modal-window {
+  background: var(--studio-surface);
+  border: 1px solid var(--studio-border);
+  border-radius: 16px;
+  width: 95%;
+  max-width: 1100px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.studio-modal-header {
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid var(--studio-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.studio-modal-header h2 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.studio-modal-close {
+  background: transparent;
+  border: none;
+  color: var(--studio-text-muted);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+}
+
+.studio-modal-close:hover {
+  color: #fff;
+}
+
+.studio-modal-body {
+  padding: 2rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.print-sheet-wrapper {
+  background: #ffffff;
+  color: #111;
+  padding: 2.5rem;
+  border-radius: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* ==========================================================================
+   PRINT STYLES FOR DIRECT BROWSER PRINTING (85mm x 55mm Calibrated)
+   ========================================================================== */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body {
+    background: transparent !important;
+    color: #000 !important;
+    padding: 0 !important;
+  }
+
+  body::before,
+  body::after,
+  .studio-header,
+  .controls-bar,
+  .card-unit-header,
+  .studio-actions-top,
+  .card-actions-bar,
+  .card-shadow-plate,
+  .card-specular-sheen {
+    display: none !important;
+  }
+
+  .studio-main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
+
+  .cards-container-grid {
+    display: block !important;
+  }
+
+  .card-unit {
+    page-break-after: always;
+    page-break-inside: avoid;
+    margin-bottom: 20mm;
+    max-width: 100% !important;
+  }
+
+  .card-3d-wrapper {
+    width: 85mm !important;
+    height: 55mm !important;
+    transform: none !important;
+  }
+
+  .business-card {
+    width: 85mm !important;
+    height: 55mm !important;
+    box-shadow: none !important;
+    border: 1px solid #ddd !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  .model-light .card-left-col {
+    width: 36mm !important;
+  }
+
+  .model-light .crest-circle-svg {
+    width: 22mm !important;
+    height: 22mm !important;
+  }
+
+  .model-light .card-brand-name {
+    font-size: 9pt !important;
+  }
+
+  .model-light .card-right-col {
+    width: 49mm !important;
+    padding: 5mm !important;
+  }
+
+  .model-light .member-name {
+    font-size: 11pt !important;
+  }
+
+  .model-light .member-role {
+    font-size: 6.5pt !important;
+  }
+
+  .model-light .contact-badge-icon {
+    width: 5mm !important;
+    height: 5mm !important;
+  }
+
+  .model-light .contact-text {
+    font-size: 7.5pt !important;
+  }
+}
+
+/* Responsive adjustments for studio */
+@media (max-width: 1400px) {
+  :root {
+    --card-width: 580px;
+    --card-height: 350px;
+  }
+  .cards-container-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .studio-header {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  .controls-bar {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .member-tabs {
+    overflow-x: auto;
+    width: 100%;
+  }
+  :root {
+    --card-width: 100%;
+    --card-height: 230px;
+  }
+  .studio-main {
+    padding: 1.5rem 1rem;
+  }
+  .model-light .crest-circle-svg,
+  .model-dark .crest-circle-svg {
+    width: 90px;
+    height: 90px;
+  }
+  .model-light .member-name,
+  .model-dark .member-name {
+    font-size: 1.1rem;
+  }
+  .model-light .contact-text,
+  .model-dark .contact-text {
+    font-size: 0.8rem;
+  }
+  .model-light .contact-badge-icon,
+  .model-dark .contact-badge-icon {
+    width: 24px;
+    height: 24px;
+  }
+}

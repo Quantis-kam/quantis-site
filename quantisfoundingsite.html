@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantis — Nous cherchons à découvrir ce qui fonctionne.</title>
+  <meta name="description" content="Quantis : trois ingénieurs, une déclaration de guerre contre le logiciel bâclé. Applications, réseaux, automatisation, IA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --q-navy: #0f1a3d;
+      --q-navy-light: #1a2b5e;
+      --q-navy-glow: rgba(15, 26, 61, 0.15);
+      --q-white: #f8f9fc;
+      --q-gray: #e2e6f0;
+      --q-text: #0f1a3d;
+      --q-text-light: #4a5578;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--q-white);
+      color: var(--q-text);
+      overflow-x: hidden;
+    }
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--q-white);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 24px;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-ring {
+      width: 80px; height: 80px;
+      border: 3px solid var(--q-gray);
+      border-top-color: var(--q-navy);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    .loader-text {
+      font-weight: 700; letter-spacing: 0.3em;
+      font-size: 14px; color: var(--q-navy);
+      text-transform: uppercase;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.4s ease;
+    }
+    nav.scrolled {
+      background: rgba(248, 249, 252, 0.85);
+      backdrop-filter: blur(20px);
+      box-shadow: 0 1px 20px rgba(15,26,61,0.08);
+      padding: 16px 48px;
+    }
+    .nav-logo {
+      font-size: 22px; font-weight: 800; letter-spacing: 0.15em;
+      color: var(--q-navy); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo svg { width: 32px; height: 32px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--q-text-light);
+      font-size: 13px; font-weight: 600; letter-spacing: 0.05em;
+      text-transform: uppercase; position: relative;
+      transition: color 0.3s ease;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -6px; left: 0;
+      width: 0; height: 2px; background: var(--q-navy);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--q-navy); }
+    .nav-links a:hover::after { width: 100%; }
+    #hero {
+      position: relative; height: 100vh; width: 100%;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; z-index: 1;
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center;
+      max-width: 900px; padding: 0 24px;
+    }
+    .hero-badge {
+      display: inline-block; padding: 8px 20px;
+      border: 1px solid rgba(15,26,61,0.2); border-radius: 100px;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--q-navy-light);
+      margin-bottom: 32px; opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s ease 0.5s forwards;
+    }
+    .hero-title {
+      font-size: clamp(40px, 6vw, 80px); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.02em;
+      margin-bottom: 24px; color: var(--q-navy);
+      opacity: 0; transform: translateY(30px);
+      animation: fadeUp 1s ease 0.7s forwards;
+    }
+    .hero-title span {
+      display: block; font-weight: 300; font-size: 0.6em;
+      letter-spacing: 0.05em; margin-top: 8px; color: var(--q-text-light);
+    }
+    .hero-quote {
+      font-size: 18px; font-weight: 400; font-style: italic;
+      color: var(--q-text-light); max-width: 600px; margin: 0 auto 40px;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s ease 0.9s forwards;
+    }
+    .hero-cta {
+      display: inline-flex; gap: 16px; opacity: 0; transform: translateY(20px);
+      animation: fadeUp 0.8s ease 1.1s forwards;
+    }
+    .btn {
+      padding: 16px 36px; border-radius: 8px; font-size: 14px;
+      font-weight: 700; letter-spacing: 0.05em; text-decoration: none;
+      transition: all 0.3s ease; cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--q-navy); color: white;
+      box-shadow: 0 4px 20px rgba(15,26,61,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(15,26,61,0.35);
+    }
+    .btn-secondary {
+      background: transparent; color: var(--q-navy);
+      border: 1.5px solid rgba(15,26,61,0.25);
+    }
+    .btn-secondary:hover {
+      background: var(--q-navy); color: white;
+      border-color: var(--q-navy);
+    }
+    .scroll-indicator {
+      position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center;
+      gap: 8px; opacity: 0; animation: fadeUp 0.8s ease 1.5s forwards;
+    }
+    .scroll-indicator span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--q-text-light);
+    }
+    .scroll-line {
+      width: 1px; height: 40px; background: linear-gradient(to bottom, var(--q-navy), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    section { position: relative; padding: 120px 48px; }
+    .section-header { max-width: 700px; margin-bottom: 80px; }
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--q-text-light);
+      margin-bottom: 16px; display: block;
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 56px); font-weight: 800;
+      letter-spacing: -0.02em; line-height: 1.1; color: var(--q-navy);
+    }
+    .section-title em {
+      font-style: normal; font-weight: 300; color: var(--q-text-light);
+    }
+    #services { background: white; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; max-width: 1200px;
+    }
+    .service-card {
+      background: var(--q-white); border: 1px solid var(--q-gray);
+      border-radius: 16px; padding: 40px 32px;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative; overflow: hidden;
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: var(--q-navy); transform: scaleX(0); transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(15,26,61,0.12);
+      border-color: transparent;
+    }
+    .service-card:hover::before { transform: scaleX(1); }
+    .service-icon {
+      width: 48px; height: 48px; margin-bottom: 24px;
+      color: var(--q-navy);
+    }
+    .service-card h3 {
+      font-size: 20px; font-weight: 700; margin-bottom: 12px;
+      color: var(--q-navy);
+    }
+    .service-card p {
+      font-size: 14px; line-height: 1.7; color: var(--q-text-light);
+    }
+    #vision { background: var(--q-navy); color: white; }
+    #vision .section-label { color: rgba(255,255,255,0.5); }
+    #vision .section-title { color: white; }
+    .principles-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px; max-width: 1200px; margin-top: 60px;
+    }
+    .principle-item {
+      padding: 32px; border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; background: rgba(255,255,255,0.03);
+      transition: all 0.3s ease;
+    }
+    .principle-item:hover {
+      background: rgba(255,255,255,0.07);
+      transform: translateX(8px);
+      border-color: rgba(255,255,255,0.2);
+    }
+    .principle-num {
+      font-size: 48px; font-weight: 800; line-height: 1;
+      color: rgba(255,255,255,0.08); margin-bottom: 16px;
+      transition: color 0.3s ease;
+    }
+    .principle-item:hover .principle-num { color: rgba(255,255,255,0.2); }
+    .principle-item h4 {
+      font-size: 16px; font-weight: 700; margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    .principle-item p {
+      font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.7);
+    }
+    #team { background: var(--q-white); }
+    .team-intro {
+      max-width: 600px; margin-bottom: 60px;
+      font-size: 18px; line-height: 1.8; color: var(--q-text-light);
+    }
+    .team-grid {
+      display: flex; gap: 32px; max-width: 1000px;
+      flex-wrap: wrap;
+    }
+    .team-member {
+      flex: 1; min-width: 260px;
+      text-align: center; padding: 48px 32px;
+      background: white; border-radius: 16px;
+      border: 1px solid var(--q-gray);
+      transition: all 0.4s ease;
+    }
+    .team-member:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(15,26,61,0.1);
+    }
+    .member-avatar {
+      width: 80px; height: 80px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--q-navy), var(--q-navy-light));
+      margin: 0 auto 24px; display: flex; align-items: center; justify-content: center;
+      font-size: 28px; font-weight: 700; color: white;
+    }
+    .team-member h4 { font-size: 20px; font-weight: 700; color: var(--q-navy); margin-bottom: 4px; }
+    .team-member .role { font-size: 13px; font-weight: 600; color: var(--q-text-light); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; }
+    .team-member p { font-size: 14px; line-height: 1.7; color: var(--q-text-light); }
+    #horizon { background: white; }
+    .timeline {
+      position: relative; max-width: 900px; padding-left: 40px;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--q-navy), var(--q-gray));
+    }
+    .timeline-item {
+      position: relative; padding-bottom: 60px; opacity: 0; transform: translateX(-20px);
+      transition: all 0.6s ease;
+    }
+    .timeline-item.visible { opacity: 1; transform: translateX(0); }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -46px; top: 4px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--q-navy); border: 3px solid white;
+      box-shadow: 0 0 0 3px var(--q-gray);
+    }
+    .timeline-year {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+      color: var(--q-navy); margin-bottom: 8px;
+    }
+    .timeline-text {
+      font-size: 16px; line-height: 1.7; color: var(--q-text-light);
+    }
+    .timeline-text strong { color: var(--q-navy); font-weight: 700; }
+    #cta {
+      background: var(--q-navy); color: white;
+      text-align: center; padding: 160px 48px;
+    }
+    #cta h2 {
+      font-size: clamp(32px, 5vw, 64px); font-weight: 800;
+      margin-bottom: 24px; letter-spacing: -0.02em;
+    }
+    #cta p {
+      font-size: 18px; max-width: 600px; margin: 0 auto 48px;
+      color: rgba(255,255,255,0.7); line-height: 1.7;
+    }
+    #cta .btn-primary {
+      background: white; color: var(--q-navy);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    #cta .btn-primary:hover {
+      background: var(--q-gray);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    footer {
+      background: #080e1f; color: rgba(255,255,255,0.4);
+      padding: 40px 48px; text-align: center;
+      font-size: 12px; letter-spacing: 0.1em;
+    }
+    .reveal {
+      opacity: 0; transform: translateY(40px);
+      transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      nav.scrolled { padding: 12px 24px; }
+      .nav-links { display: none; }
+      section { padding: 80px 24px; }
+      .hero-title { font-size: 36px; }
+      .services-grid, .principles-grid { grid-template-columns: 1fr; }
+      .team-grid { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="loader">
+  <div class="loader-ring"></div>
+  <div class="loader-text">Quantis</div>
+</div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="20" cy="20" r="18" stroke="#0f1a3d" stroke-width="2"/>
+      <circle cx="20" cy="20" r="14" stroke="#0f1a3d" stroke-width="1" opacity="0.3"/>
+      <text x="20" y="26" text-anchor="middle" font-family="Inter, sans-serif" font-weight="800" font-size="20" fill="#0f1a3d">Q</text>
+    </svg>
+    QUANTIS
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#team">Équipe</a></li>
+    <li><a href="#horizon">Horizon</a></li>
+    <li><a href="#cta">Contact</a></li>
+  </ul>
+</nav>
+
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">Fondé le 11 juillet 2026</div>
+    <h1 class="hero-title">
+      Quantis
+      <span>Nous ne cherchons pas à avoir raison.<br>Nous cherchons à découvrir ce qui fonctionne.</span>
+    </h1>
+    <p class="hero-quote">Trois ingénieurs. Une déclaration de guerre contre le logiciel bâclé. Une promesse de construire ce qui dure.</p>
+    <div class="hero-cta">
+      <a href="#services" class="btn btn-primary">Découvrir nos services</a>
+      <a href="#vision" class="btn btn-secondary">Notre vision</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-label">Ce que nous construisons</span>
+    <h2 class="section-title">Des solutions qui résolvent<br><em>des problèmes réels</em></h2>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Applications Web & Mobile</h3>
+      <p>Des interfaces pensées pour durer. Du code propre, testé, documenté. Web, mobile, desktop — nous livrons des produits que vos équipes aimeront maintenir dans dix ans.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <h3>Réseaux & Systèmes</h3>
+      <p>Architecture réseau, infrastructure, WiFi zones, câblage structuré. Nous construisons des réseaux qui fonctionnent sans que personne n'y pense. Solides, sécurisés, simples.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      </div>
+      <h3>Automatisation & IA</h3>
+      <p>L'intelligence artificielle au service de l'utile. Pas de buzzwords, des résultats mesurables. Automatisation des processus, intégration d'IA, optimisation des flux de travail.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+      </div>
+      <h3>Cloud & Infrastructure</h3>
+      <p>Migration cloud, architecture scalable, sécurité des données. Nous absorbons la complexité pour que vous ne la voyiez jamais. Votre infrastructure grandit avec vous.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Sécurité & Audit</h3>
+      <p>Audit réseau, pentest, conformité. Nous identifions les failles avant qu'elles ne deviennent des crises. Votre tranquillité est notre métier.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      </div>
+      <h3>Logiciel sur mesure</h3>
+      <p>Votre métier est unique. Votre logiciel aussi. Nous concevons et développons des solutions sur mesure qui s'adaptent à vos processus, pas l'inverse.</p>
+    </div>
+  </div>
+</section>
+
+<section id="vision">
+  <div class="section-header reveal">
+    <span class="section-label">Le Quantis Way</span>
+    <h2 class="section-title">7 principes<br><em>non négociables</em></h2>
+  </div>
+  <div class="principles-grid">
+    <div class="principle-item reveal">
+      <div class="principle-num">01</div>
+      <h4>Résoudre avant de vendre</h4>
+      <p>Un client n'achète pas un logiciel. Il achète un résultat. Nous comprenons la douleur, mesurons l'impact, prouvons la valeur avant de proposer quoi que ce soit.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">02</div>
+      <h4>L'excellence est une habitude</h4>
+      <p>Nous refusons le travail bâclé. Si un détail nuit à l'expérience, nous le corrigeons. La qualité n'est pas une option. C'est le standard.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">03</div>
+      <h4>L'innovation doit être utile</h4>
+      <p>Nous ne développons pas parce que c'est impressionnant. Nous construisons parce que cela apporte une valeur mesurable. Si on ne peut pas mesurer l'impact — on ne le construit pas.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">04</div>
+      <h4>Simplifier la complexité</h4>
+      <p>Le travail de l'ingénieur est de rendre les choses simples. Le client ne doit pas sentir la complexité que nous avons absorbée. C'est notre travail. Pas le sien.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">05</div>
+      <h4>Apprendre sans cesse</h4>
+      <p>La technologie évolue. Les menaces évoluent. Nous aussi. Chaque membre apprend continuellement, partage, documente, transmet.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">06</div>
+      <h4>Construire pour durer</h4>
+      <p>Nous ne cherchons pas le buzz. Chaque ligne de code est écrite comme si elle devait rester dix ans. Parce que souvent, elle y restera.</p>
+    </div>
+    <div class="principle-item reveal">
+      <div class="principle-num">07</div>
+      <h4>Notre réussite passe par la vôtre</h4>
+      <p>Nous ne grandissons pas sur le dos de nos clients. Nous grandissons avec eux. Leur croissance est la nôtre. Leur tranquillité est la nôtre.</p>
+    </div>
+  </div>
+</section>
+
+<section id="team">
+  <div class="section-header reveal">
+    <span class="section-label">Les fondateurs</span>
+    <h2 class="section-title">Trois ingénieurs.<br><em>Une obsession.</em></h2>
+  </div>
+  <p class="team-intro reveal">Nous sommes des résolveurs de problèmes. Des ingénieurs en Systèmes d'Information et en Réseaux & Systèmes qui ne se contentent pas de vendre du code ou du câble. Nous vendons du temps, de l'argent, de la tranquillité, de la croissance.</p>
+  <div class="team-grid">
+    <div class="team-member reveal">
+      <div class="member-avatar">Q1</div>
+      <h4>Fondateur 1</h4>
+      <div class="role">Ingénieur Systèmes</div>
+      <p>Architecte des solutions réseau et infrastructure. Convaincu qu'un bon réseau est un réseau qu'on n'a jamais besoin de réparer.</p>
+    </div>
+    <div class="team-member reveal">
+      <div class="member-avatar">Q2</div>
+      <h4>Fondateur 2</h4>
+      <div class="role">Ingénieur Logiciel</div>
+      <p>Développeur passionné par le code propre et les interfaces qui disparaissent pour ne laisser que l'essentiel.</p>
+    </div>
+    <div class="team-member reveal">
+      <div class="member-avatar">Q3</div>
+      <h4>Fondateur 3</h4>
+      <div class="role">Ingénieur Réseaux</div>
+      <p>Spécialiste de la sécurité et des architectures distribuées. Chaque ligne de configuration est une promesse de fiabilité.</p>
+    </div>
+  </div>
+</section>
+
+<section id="horizon">
+  <div class="section-header reveal">
+    <span class="section-label">Notre horizon</span>
+    <h2 class="section-title">Ce vers quoi<br><em>nous courons</em></h2>
+  </div>
+  <div class="timeline">
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2026</div>
+      <div class="timeline-text"><strong>Naissance.</strong> Ce document. Cette équipe. Ces principes. Premiers pas. Quantis existe.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2027 — 2028</div>
+      <div class="timeline-text"><strong>Premières preuves.</strong> Premiers produits, premiers clients. Le Quantis Way devient notre langage commun. Nous existons.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2029 — 2031</div>
+      <div class="timeline-text"><strong>Product-market fit.</strong> L'identité Quantis se reconnaît. Nos clients nous recommandent avant même que nous ne vendions. Nous sommes une référence.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2032 — 2036</div>
+      <div class="timeline-text"><strong>Rayonnement.</strong> Le Quantis Way est cité, étudié, adapté. Nos produits durent. Nos clients durent. Notre culture dure. Nous inspirons.</div>
+    </div>
+    <div class="timeline-item reveal">
+      <div class="timeline-year">2040+</div>
+      <div class="timeline-text"><strong>Quantis traverse les décennies.</strong> Non pas parce que nous avons eu le meilleur produit en 2026. Mais parce que nous avons construit quelque chose qui a du sens.</div>
+    </div>
+  </div>
+</section>
+
+<section id="cta">
+  <h2 class="reveal">Bienvenue chez Quantis.</h2>
+  <p class="reveal">Si tu lis ce document et que quelque chose en toi résonne — ne cherche pas ailleurs. Tu es au bon endroit. On teste. On mesure. On apprend. On s'améliore.</p>
+  <div class="reveal">
+    <a href="mailto:contact@quantis.fr" class="btn btn-primary">Nous contacter</a>
+  </div>
+</section>
+
+<footer>
+  QUANTIS — Document établi le 11 juillet 2026 — Première édition Fondatrice
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 1200);
+  });
+
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) navbar.classList.add('scrolled');
+    else navbar.classList.remove('scrolled');
+  });
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal, .timeline-item').forEach(el => observer.observe(el));
+
+  const canvas = document.getElementById('hero-canvas');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  const particleCount = 120;
+  const positions = new Float32Array(particleCount * 3);
+  const velocities = [];
+
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 1] = (Math.random() - 0.5) * 20;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
+    velocities.push({
+      x: (Math.random() - 0.5) * 0.005,
+      y: (Math.random() - 0.5) * 0.005,
+      z: (Math.random() - 0.5) * 0.002
+    });
+  }
+
+  const geometry = new THREE.BufferGeometry();
+  geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+  const material = new THREE.PointsMaterial({
+    color: 0x0f1a3d, size: 0.08, transparent: true, opacity: 0.6, sizeAttenuation: true
+  });
+
+  const particles = new THREE.Points(geometry, material);
+  scene.add(particles);
+
+  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x0f1a3d, transparent: true, opacity: 0.08 });
+  const lineGeometry = new THREE.BufferGeometry();
+  const lines = new THREE.LineSegments(lineGeometry, lineMaterial);
+  scene.add(lines);
+
+  camera.position.z = 8;
+
+  const mouse = { x: 0, y: 0 };
+  window.addEventListener('mousemove', (e) => {
+    mouse.x = (e.clientX / window.innerWidth - 0.5) * 2;
+    mouse.y = (e.clientY / window.innerHeight - 0.5) * 2;
+  });
+
+  let time = 0;
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.001;
+    const pos = geometry.attributes.position.array;
+
+    for (let i = 0; i < particleCount; i++) {
+      pos[i * 3] += velocities[i].x + Math.sin(time + i) * 0.001;
+      pos[i * 3 + 1] += velocities[i].y + Math.cos(time + i) * 0.001;
+      pos[i * 3 + 2] += velocities[i].z;
+      if (Math.abs(pos[i * 3]) > 10) velocities[i].x *= -1;
+      if (Math.abs(pos[i * 3 + 1]) > 10) velocities[i].y *= -1;
+      if (Math.abs(pos[i * 3 + 2]) > 5) velocities[i].z *= -1;
+    }
+    geometry.attributes.position.needsUpdate = true;
+
+    const linePositions = [];
+    for (let i = 0; i < particleCount; i++) {
+      for (let j = i + 1; j < particleCount; j++) {
+        const dx = pos[i * 3] - pos[j * 3];
+        const dy = pos[i * 3 + 1] - pos[j * 3 + 1];
+        const dz = pos[i * 3 + 2] - pos[j * 3 + 2];
+        const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+        if (dist < 2.5) {
+          linePositions.push(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]);
+          linePositions.push(pos[j * 3], pos[j * 3 + 1], pos[j * 3 + 2]);
+        }
+      }
+    }
+    lineGeometry.setAttribute('position', new THREE.Float32BufferAttribute(linePositions, 3));
+
+    camera.position.x += (mouse.x * 0.5 - camera.position.x) * 0.02;
+    camera.position.y += (-mouse.y * 0.5 - camera.position.y) * 0.02;
+    camera.lookAt(0, 0, 0);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+</script>
+
+</body>
+</html>
